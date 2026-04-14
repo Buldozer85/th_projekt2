@@ -4,7 +4,7 @@ import re
 
 # --- 1. NAČTENÍ PREFERENCÍ (Plně dynamické z CSV) ---
 # Předpokládáme, že první sloupec (index_col=0) jsou jména a zbylých 5 sloupců jsou sloty
-df_preference = pd.read_csv("data/preference.csv", sep=",", index_col=0)
+df_preference = pd.read_csv("data/rozvrh-ukazka.csv", sep=",", index_col=0)
 kurzy = ["PRO", "TINF", "NUMA"]
 
 # Maximální možný počet bodů (každý student dostane své 3 nejoblíbenější sloty)
@@ -20,7 +20,7 @@ def nacti_mapu_z_csv(cesta_k_souboru):
         mapa = {}
         for _, row in unikatni_kurzy.iterrows():
             kurz = row['Kurz']
-        
+
             hledane_cislo = re.search(r'\d+', str(row['Slot']))
             if hledane_cislo:
                 mapa[kurz] = int(hledane_cislo.group())
@@ -33,7 +33,7 @@ def nacti_mapu_z_csv(cesta_k_souboru):
 grafy_mapa = nacti_mapu_z_csv("results/graph-theory/rozvrh_grafy.csv")
 hry_mapa = nacti_mapu_z_csv("results/game-theory/rozvrh_hry.csv")
 
-ai_mapa = {"PRO": 3, "TINF": 4, "NUMA": 5}
+ai_mapa = {"PRO": 1, "TINF": 3, "NUMA": 5}
 
 
 # --- 3. VÝPOČET SPOKOJENOSTI ---
