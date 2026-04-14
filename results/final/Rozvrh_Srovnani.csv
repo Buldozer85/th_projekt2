@@ -1,4 +1,4 @@
-Rozvrhy,PreferenceScore,Slot1,Slot2,Slot3,Slot4,Slot5
-Teorie_Grafu,0.7308,PRO,TINF,,,NUMA
-Teorie_Her,0.6154,PRO,,TINF,,NUMA
-Generativni_AI,0.6154,PRO,,TINF,,NUMA
+Rozvrhy,Spokojenost,Cekani_Sloty,Slot1,Slot2,Slot3,Slot4,Slot5
+Teorie_Grafu,94.2%,0,PRO,TINF,NUMA,,
+Teorie_Her,61.5%,2,PRO,,TINF,,NUMA
+Generativni_AI,61.5%,2,PRO,,TINF,,NUMA

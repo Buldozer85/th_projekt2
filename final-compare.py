@@ -32,19 +32,16 @@ def nacti_mapu_z_csv(cesta_k_souboru):
 
 grafy_mapa = nacti_mapu_z_csv("results/graph-theory/rozvrh_grafy.csv")
 hry_mapa = nacti_mapu_z_csv("results/game-theory/rozvrh_hry.csv")
+ai_mapa = nacti_mapu_z_csv("results/ai/rozvrh_ai.csv")
 
-ai_mapa = {"PRO": 1, "TINF": 3, "NUMA": 5}
 
-
-# --- 3. VÝPOČET SPOKOJENOSTI ---
-def spocitej_skore(mapa_rozvrhu):
+# --- 3. VÝPOČET METRIK ---
+def spocitej_skore_preference(mapa_rozvrhu):
     if not mapa_rozvrhu: return 0
     ziskane_body = 0
 
     for _, preference in df_preference.iterrows():
         for kurz, slot_cislo in mapa_rozvrhu.items():
-            # Vezmeme sloupec čistě podle jeho pozice (slot 1 = nultý index)
-            # Tím se vyhneme problému s textovými názvy sloupců
             index_sloupce = int(slot_cislo) - 1
             if index_sloupce < len(df_preference.columns):
                 odpovidajici_sloupec = df_preference.columns[index_sloupce]
@@ -53,10 +50,28 @@ def spocitej_skore(mapa_rozvrhu):
     return ziskane_body / max_body_celkem
 
 
+def spocitej_cekani(mapa_rozvrhu):
+    if not mapa_rozvrhu: return 0
+    sloty = sorted(mapa_rozvrhu.values())
+    # Čekání je rozdíl mezi prvním a posledním slotem mínus počet kurzů (které trvají 1 slot)
+    # Příklad: sloty 1, 3, 5 -> (5 - 1) = 4 sloty rozpětí, ale jsou tam 3 kurzy, takže 2 sloty čekání
+    rozpeti = sloty[-1] - sloty[0]
+    pocet_kurzu = len(sloty)
+    cekani = max(0, rozpeti - (pocet_kurzu - 1))
+    return cekani
+
+
 # --- 4. SESTAVENÍ FINÁLNÍ TABULKY ---
-def vytvor_radek(nazev, mapa, score):
+def vytvor_radek(nazev, mapa):
     if not mapa: return None
-    radek = {'Rozvrhy': nazev, 'PreferenceScore': round(score, 4)}
+    score = spocitej_skore_preference(mapa)
+    cekani = spocitej_cekani(mapa)
+
+    radek = {
+        'Rozvrhy': nazev,
+        'Spokojenost': f"{round(score * 100, 1)}%",
+        'Cekani_Sloty': cekani
+    }
     for i in range(1, 6):
         kurz_ve_slotu = ""
         for k, s in mapa.items():
@@ -66,9 +81,9 @@ def vytvor_radek(nazev, mapa, score):
 
 
 data_vysledek = [
-    vytvor_radek("Teorie_Grafu", grafy_mapa, spocitej_skore(grafy_mapa)),
-    vytvor_radek("Teorie_Her", hry_mapa, spocitej_skore(hry_mapa)),
-    vytvor_radek("Generativni_AI", ai_mapa, spocitej_skore(ai_mapa))
+    vytvor_radek("Teorie_Grafu", grafy_mapa),
+    vytvor_radek("Teorie_Her", hry_mapa),
+    vytvor_radek("Generativni_AI", ai_mapa)
 ]
 # Vyfiltrujeme případné prázdné řádky
 data_vysledek = [r for r in data_vysledek if r is not None]

@@ -40,7 +40,7 @@ dostupne_sloty = [1, 2, 3, 4, 5]
 
 # Můžeš změnit na random.sample(dostupne_sloty, pocet_barev), pokud chceš sloty rozházet náhodně.
 # Zde nechávám pevné první 3 sloty pro nejlepší kontrast u obhajoby (jak jsme se bavili).
-vybrane_sloty = [1, 2, 5]
+vybrane_sloty = [1, 2, 3]
 mapa_slotu = {pouzite_barvy[i]: vybrane_sloty[i] for i in range(pocet_barev)}
 
 # ==========================================
