@@ -1,4 +1,6 @@
 Rozvrhy,Spokojenost,Cekani_Sloty,Slot1,Slot2,Slot3,Slot4,Slot5
-Teorie_Grafu,94.2%,0,PRO,TINF,NUMA,,
-Teorie_Her,61.5%,2,PRO,,TINF,,NUMA
-Generativni_AI,61.5%,2,PRO,,TINF,,NUMA
+Teorie_Grafu,57.5%,0,PRO,TINF,NUMA,,
+Teorie_Her,72.5%,2,PRO,NUMA,,,TINF
+Aukce,72.5%,2,PRO,NUMA,,,TINF
+AI_Zakladni,60.0%,2,PRO,,TINF,,NUMA
+AI_Pokrocila,57.5%,0,PRO,TINF,NUMA,,

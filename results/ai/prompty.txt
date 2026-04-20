@@ -1,0 +1,9 @@
+### 1. Základní Prompt (Zero-shot)
+"Navrhni rozvrh pro 3 kurzy (PRO, TINF, NUMA) do 5 časových slotů pro 20 studentů. Snaž se kurzy rovnoměrně rozprostřít, aby studenti neměli vše v jeden den."
+
+### 2. Pokročilý Prompt (Chain-of-Thought / Constraint-Aware)
+"Máš k dispozici matici preferencí 20 studentů pro 5 slotů. Tvým úkolem je sestavit rozvrh pro 3 kurzy (PRO, TINF, NUMA). 
+Krok 1: Analyzuj, které sloty mají nejvyšší součet bodů.
+Krok 2: Zohledni efektivitu (studenti nechtějí mít mezi kurzy volná 'okna').
+Krok 3: Navrhni kompaktní blok tří po sobě jdoucích slotů, které mají v součtu nejvyšší váhu.
+Výsledek vraj ve formátu CSV: Student, Kurz, Slot."
